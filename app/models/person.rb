@@ -7,4 +7,10 @@ class Person < ActiveRecord::Base
   # use habtm instead of has many through when we don't
   # need the overhead of the join model
   has_many :approx_salaries, through: :jobs, source: :salary_range
+
+  def max_salary
+    approx_salaries.maximum :max_salary
+    # method doesn't pull back all info, just runs it on the
+    # max_salary field
+  end
 end
