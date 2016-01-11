@@ -13,4 +13,12 @@ class Person < ActiveRecord::Base
     # method doesn't pull back all info, just runs it on the
     # max_salary field
   end
+
+  scope :ordered_by_age, -> { order age: :desc }
+  # scope takes a lambda. similar to a ruby block
+  scope :starts_with, -> (starting_string){ where("first_name LIKE ?", "#{starting_string}%") }
+  # can even add arguments so the scopes are controlled and more
+  # dynamic. also using array syntax here to avoid string injection
+  # unlike a class method which could return anything, a scope has to return
+  # an ActiveRecord relation. This means we can chain scopes!
 end
